@@ -1,1 +1,0 @@
-# React_web_typescript_personal
