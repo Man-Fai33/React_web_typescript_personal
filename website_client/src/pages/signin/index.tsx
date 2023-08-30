@@ -112,7 +112,7 @@ export default function SignIn() {
 
                                         </Grid>
                                         <Grid item>
-                                             <Link to="/about" >
+                                             <Link to="/signup" >
                                                   Sign Up
                                              </Link>
                                         </Grid>

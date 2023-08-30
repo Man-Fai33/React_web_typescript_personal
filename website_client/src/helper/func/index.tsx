@@ -7,7 +7,6 @@ const FuncsHelper = {
           return pwd === "" ? false : true
      }
 
-
 }
 
 
