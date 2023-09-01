@@ -1,3 +1,4 @@
+import { ButtonBase } from '@mui/material';
 import { MouseEventHandler, ReactNode } from 'react';
 
 export default function Button(props: {
@@ -6,7 +7,7 @@ export default function Button(props: {
      disabled?: boolean,
      onClick?: MouseEventHandler<HTMLButtonElement>
 }) {
-     return <button type="button" disabled={props.disabled} className={props.className || 'btn btn-white d-flex align-items-center export'}
+     return <button disabled={props.disabled} className={props.className}
           onClick={props.onClick}>
           {props.children}</button>;
 }

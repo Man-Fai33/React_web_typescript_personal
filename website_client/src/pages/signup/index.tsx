@@ -9,11 +9,55 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { LoginData, errInfo } from '../../context/objectOT'
-import func from '../../helper/func'
+
 import { Link } from 'react-router-dom';
+import User from '../../context/model/user';
+import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@mui/material';
+import func from '../../helper/func';
+import { ApiHelper } from '../../helper/api/apiHelper';
+import { errInfo } from '../../context/objectOT';
 const defaultTheme = createTheme();
+
 export default function SignUp() {
+     const [user] = React.useState(new User.User())
+     // const getLogin = (callback: (r: az))
+     const [errorDipaly] = React.useState(new errInfo)
+     const [formstatus, setFormStatus] = React.useState<number>(0)
+     const ageList = () => {
+          const option = []
+          for (var i = 18; i <= 100; i++) {
+               option.push(<MenuItem value={i}>{i}</MenuItem>)
+          }
+          return option
+     }
+
+     const handleCreate = () => {
+          let error: Boolean = false
+          try {
+
+
+               errorDipaly.email = func.FuncsHelper.validateInputError(user.email)
+               errorDipaly.pwd = func.FuncsHelper.validateInputError(user.password)
+               errorDipaly.age = func.FuncsHelper.validateInputError(user.age.toString())
+               errorDipaly.name = func.FuncsHelper.validateInputError(user.username)
+
+               setFormStatus(new Date().getTime())
+               errorDipaly.email || errorDipaly.pwd || errorDipaly.age || errorDipaly.name || errorDipaly.gender ? error = true : error = false
+
+               if (!error) {
+                    ApiHelper.AsyncCreateUser(user).then((res) => {
+                         if (res.error) {
+                              alert(res.message)
+                         } else {
+                              alert(res.message)
+                         }
+                    })
+               }
+          } catch (error) {
+               console.log(error)
+          }
+
+     }
      return (
           <>
                <ThemeProvider theme={defaultTheme}>
@@ -71,9 +115,20 @@ export default function SignUp() {
                                              label="Email Address"
                                              name="email"
                                              autoComplete="email"
-                                             autoFocus
-                                        // error={errdisplay.email}
-                                        // onChange={(e) => { login.email = e.target.value }}
+                                             error={errorDipaly.email}
+                                             onChange={(e) => { user.email = e.target.value }}
+                                        />
+                                        <TextField
+                                             margin="normal"
+                                             required
+                                             fullWidth
+                                             id="name"
+                                             label="Name"
+                                             name="name"
+                                             autoComplete="name"
+                                             error={errorDipaly.name}
+
+                                             onChange={(e) => { user.username = e.target.value }}
                                         />
                                         <TextField
                                              margin="normal"
@@ -83,13 +138,25 @@ export default function SignUp() {
                                              label="Password"
                                              type="password"
                                              id="password"
+                                             error={errorDipaly.pwd}
                                              autoComplete="current-password"
-                                        // onChange={(e) => { login.pwd = e.target.value }}
-                                        // error={errdisplay.pwd}
+                                             onChange={(e) => { user.password = e.target.value }}
                                         />
 
+                                        <FormControl fullWidth error={errorDipaly.age} >
+                                             <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                             <Select
+                                                  labelId="demo-simple-select-label"
+                                                  id="demo-simple-select"
+                                                  label="Age"
+                                                  onChange={(e) => { user.age = Number(e.target.value) }}
+                                             >
+                                                  {ageList()}
+                                             </Select>
+                                        </FormControl>
+
                                         <Button
-                                             // onClick={handleSubmit}
+                                             onClick={handleCreate}
                                              fullWidth
                                              variant="contained"
                                              sx={{ mt: 3, mb: 2, }}
@@ -100,8 +167,8 @@ export default function SignUp() {
                                              <Grid item xs>
 
                                              </Grid>
-                                             <Grid item>
-                                                  <Link to="/signin" >
+                                             <Grid item >
+                                                  <Link to="/signin">
                                                        Sign In
                                                   </Link>
                                              </Grid>

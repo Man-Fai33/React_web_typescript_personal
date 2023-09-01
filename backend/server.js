@@ -1,5 +1,6 @@
 // import
 const express = require('express');
+const https = require('https')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -7,6 +8,7 @@ const bodyParser = require('body-parser');
 var cors = require('cors')
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+
 require('dotenv').config()
 
 var morgan = require('morgan');
@@ -27,14 +29,12 @@ async function connectToDatabase() {
 }
 connectToDatabase();
 
+const app = express()
 // routers
-
 var UserRouter = require('./api/routes/users')
 
-const app = express()
-console.log(process.env.PORT); //chris
 
-app.use(morgan('dev'));
+
 //allow other device access
 app.use(cors())
 app.use((req, res, next) => {
@@ -48,16 +48,14 @@ app.use((req, res, next) => {
 })
 //body parser
 // These must be placed under body parser!!!
+app.listen(process.env.PORT);
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(bodyParser.json({ limit: '50mb' }));
 
 
 //use router 
-app.use('/user', UserRouter)
-
-
-
+app.use('/user',UserRouter)
 
 
 

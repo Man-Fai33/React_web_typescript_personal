@@ -4,7 +4,11 @@ class LoginData {
 }
 class errInfo {
      email: boolean = false;
-     pwd = false;
+     pwd: boolean = false;
+     name: boolean = false;
+     gender: boolean = false
+     age: boolean = false
 }
+
 
 export { LoginData, errInfo }

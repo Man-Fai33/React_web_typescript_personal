@@ -1,4 +1,4 @@
-class Config {
-     url: string = "http://localhost:3001/"
+const Config = {
+     url: ("http://localhost:3001")
 }
 export default Config
