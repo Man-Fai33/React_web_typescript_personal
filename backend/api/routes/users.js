@@ -1,12 +1,7 @@
 const express = require('express')
 const router = express.Router()
-
-const { json } = require('body-parser');
-
 const User = require('../models/user');
 const { UserHelper } = require('../helper/funcHelper.js');
-
-
 
 router.get('/', (req, res) => {
      let users = new User()
@@ -15,7 +10,6 @@ router.get('/', (req, res) => {
      } catch (error) {
           console.log(error)
      }
-
      res.json(users)
 })
 router.post('/', async (req, res) => {
@@ -41,10 +35,13 @@ router.post('/', async (req, res) => {
                     return res.json(response)
                }
           } else {
- 
                if (await User.findOne({ username: user.vainput, password: user.password }).exec() !== null || await User.findOne({ email: user.vainput, password: user.password }).exec() !== null) {
-                    response.message = "登入"
 
+                    if (await User.findOne({ username: user.vainput, password: user.password }).exec() !== null) {
+                         response.message = "用戶名稱登入"
+                    } else {
+                         response.message = "用戶電郵登入"
+                    }
                } else {
                     response.message = "密碼名字錯誤/n 註冊新的賬號"
                }
@@ -54,5 +51,4 @@ router.post('/', async (req, res) => {
           console.log(error)
      }
 })
-
 module.exports = router;

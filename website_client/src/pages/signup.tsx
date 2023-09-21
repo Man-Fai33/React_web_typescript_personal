@@ -9,20 +9,19 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import { Link } from 'react-router-dom';
-import User from '../../context/model/user';
-import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@mui/material';
-import func from '../../helper/func';
-import { ApiHelper } from '../../helper/api/apiHelper';
-import { errInfo } from '../../context/objectOT';
+import User from '../context/model/user';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import func from '../helper/func';
+import { ApiHelper } from '../helper/api/apiHelper';
+import { errInfo } from '../context/objectOT';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
      const [user] = React.useState(new User.User())
      // const getLogin = (callback: (r: az))
-     const [errorDipaly] = React.useState(new errInfo)
-     const [formstatus, setFormStatus] = React.useState<number>(0)
+     const [errorDipaly] = React.useState(new errInfo())
+     const [, setFormStatus] = React.useState<number>(0)
      const ageList = () => {
           const option = []
           for (var i = 18; i <= 100; i++) {
@@ -34,15 +33,14 @@ export default function SignUp() {
      const handleCreate = () => {
           let error: Boolean = false
           try {
-
-
                errorDipaly.email = func.FuncsHelper.validateInputError(user.email)
+               errorDipaly.email = (func.FuncsHelper.validateEmail(user.email) ? false : true)
                errorDipaly.pwd = func.FuncsHelper.validateInputError(user.password)
                errorDipaly.age = func.FuncsHelper.validateInputError(user.age.toString())
                errorDipaly.name = func.FuncsHelper.validateInputError(user.username)
 
                setFormStatus(new Date().getTime())
-               errorDipaly.email || errorDipaly.pwd || errorDipaly.age || errorDipaly.name || errorDipaly.gender ? error = true : error = false
+               errorDipaly.email && errorDipaly.pwd && errorDipaly.age && errorDipaly.name && errorDipaly.gender ? error = true : error = false
 
                if (!error) {
                     ApiHelper.AsyncCreateUser(user).then((res) => {
@@ -106,7 +104,7 @@ export default function SignUp() {
                                    <Typography component="h1" variant="h5">
                                         Sign in
                                    </Typography>
-                                   <Box component="form" noValidate sx={{ mt: 1, justifyItems: 'center' }}>
+                                   <Box className='pl-5 pr-5' component="form" noValidate sx={{ mt: 1, ml: 2, mr: 2, justifyItems: 'center' }}>
                                         <TextField
                                              margin="normal"
                                              required

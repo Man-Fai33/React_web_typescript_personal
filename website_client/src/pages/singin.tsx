@@ -9,28 +9,20 @@ import Grid from '@mui/material/Grid';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { LoginData, errInfo } from '../../context/objectOT'
-import func from '../../helper/func'
+import { LoginData, errInfo } from '../context/objectOT'
+import func from '../helper/func'
 import { Link } from 'react-router-dom';
-import { ApiHelper } from '../../helper/api/apiHelper';
+import { ApiHelper } from '../helper/api/apiHelper';
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
 
      const [login] = React.useState(new LoginData())
-     const [pageStatus, setPageStatus] = React.useState(Number)
+     const [, setPageStatus] = React.useState<Number>()
      const [errdisplay] = React.useState(new errInfo())
-     // React.useEffect(() => {
-     //      let active = true
 
-
-     //      if (active) {
-     //           return
-     //      }
-     // }, [])
      const handleSubmit = async () => {
-          // errdisplay.email = func.FuncsHelper.validateEmail(login.email) ? false : true
           errdisplay.pwd = func.FuncsHelper.validatePwd(login.pwd) ? false : true
 
           try {
@@ -38,7 +30,6 @@ export default function SignIn() {
                     alert(e.message)
                }
                )
-
           } catch (error) {
 
           }
@@ -71,8 +62,6 @@ export default function SignIn() {
                                    display: 'flex',
                                    flexDirection: 'column',
                                    alignItems: 'center',
-
-
                               }}
                          >
                               <Box sx={{
@@ -98,11 +87,11 @@ export default function SignIn() {
                                         margin="normal"
                                         required
                                         fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        autoComplete="email"
-                                        autoFocus
+                                        id="emailorname"
+                                        label="Email Or Name"
+                                        name="emailorname"
+                                        autoComplete="emailorname"
+
                                         error={errdisplay.email}
                                         onChange={(e) => { login.email = e.target.value }}
                                    />

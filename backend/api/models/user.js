@@ -10,5 +10,4 @@ const User = new mongoose.Schema({
      iconUrl: { type: String, default: "" }
 });
 
-
 module.exports = mongoose.model('User', User);

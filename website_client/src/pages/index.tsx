@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 
-import Button from '../../component/button/button'
+import Button from '../component/button/button'
 import { useNavigate } from 'react-router-dom'
 export default function Index() {
      const navigator = useNavigate()
@@ -20,7 +20,7 @@ export default function Index() {
                          <Button onClick={(e) => { navigator('/signin') }}>login</Button>
                          <Button onClick={(e) => { navigator('/signup') }}>signup</Button>
                     </Box>
-                    <Box></Box>
+
                </Box>
           </Box>
      </>)

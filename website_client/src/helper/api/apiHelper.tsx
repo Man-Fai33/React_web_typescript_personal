@@ -35,7 +35,6 @@ const ApiHelper = {
           let responseJson = await response.json();
           return responseJson;
      },
-
 }
 
 export { ApiHelper }

@@ -1,4 +1,4 @@
-import { ButtonBase } from '@mui/material';
+import ButtonBase from '@mui/material/Button';
 import { MouseEventHandler, ReactNode } from 'react';
 
 export default function Button(props: {
@@ -7,7 +7,7 @@ export default function Button(props: {
      disabled?: boolean,
      onClick?: MouseEventHandler<HTMLButtonElement>
 }) {
-     return <button disabled={props.disabled} className={props.className}
+     return <ButtonBase disabled={props.disabled} className={props.className}
           onClick={props.onClick}>
-          {props.children}</button>;
+          {props.children}</ButtonBase>;
 }
