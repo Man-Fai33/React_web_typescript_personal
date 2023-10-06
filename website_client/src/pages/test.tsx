@@ -1,50 +1,62 @@
-import React from 'react'
-import 'handsontable/dist/handsontable.full.min.css';
-import { registerAllModules } from 'handsontable/registry';
-import { HotTable } from '@handsontable/react';
-registerAllModules();
-export default function TestPage() {
+     import React, { useState } from 'react'
 
 
-     const data = [
-          ['', 'Tesla', 'Nissan', 'Toyota', 'Honda', 'Mazda', 'Ford'],
-          ['2017', 10, 11, 12, 13, 15, 16],
-          ['2018', 10, 11, 12, 13, 15, 16],
-          ['2019', 10, 11, 12, 13, 15, 16],
-          ['2020', 10, 11, 12, 13, 15, 16],
-          ['2021', 10, 11, 12, 13, 15, 16]
-     ];
+     import { ReactSortable } from "react-sortablejs";
 
-     return (
-          <div className='bg-slate-200 w-full  h-full'>
-               <HotTable
-                    colHeaders={["year", "name", "1", "2", "3", "4"
-                         , "5"]}
-                    data={JSON.parse(JSON.stringify(data))}
-                    licenseKey="non-commercial-and-evaluation"
-                    settings={{
-                         //settring size 
-                         height: "auto",
-                         width: "auto",
-                         autoRowSize: true,
-                         autoColumnSize: true,
-                         filters: true,
-                         colHeaders: true,
-                         rowHeaders: true,
-                         dropdownMenu: true,
-                         multiColumnSorting: true,
-                         manualRowMove: true,
-                         manualColumnMove: true,
-                         dragToScroll: true,
+     interface ItemType {
+          id: number;
+          name: string;
+     }
 
-                    }}
-                    contextMenu={{
-                         items:{
-                              cut:{
-                              }
-                         }
-                    }}
-               />
-          </div>
-     );
-}
+
+
+
+     export default function TestPage() {
+          const [state, setState] = useState<ItemType[]>([
+               { id: 1, name: "shrek" },
+               { id: 2, name: "fiona" },
+          ]);
+
+          const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+               const updatedState = state.map((item) => {
+                    if (item.id === id) {
+                         return { ...item, name: e.target.value };
+                    }
+                    return item;
+               });
+               setState(updatedState);
+          };
+
+          const handleDeleteClick = (id: number) => {
+               const updatedState = state.filter((item) => item.id !== id);
+               setState(updatedState);
+          };
+
+          const handleShowData = (id: number) => {
+               const selectedItem = state.find((item) => item.id === id);
+               if (selectedItem) {
+                    alert(`Item ID: ${selectedItem.id}, Name: ${selectedItem.name}`);
+               }
+          };
+
+
+          const handleAddClick = () => {
+               const newItem: ItemType = { id: Date.now(), name: "" };
+               setState([...state, newItem]);
+          };
+          return (<ReactSortable list={state} setList={setState}>
+               {state.map((item) => (
+                    <div key={item.id}>
+                         <input
+                              type="text"
+                              value={item.name}
+                              onChange={(e) => handleInputChange(e, item.id)}
+                         />
+                         <button onClick={() => handleDeleteClick(item.id)}>删除</button>
+                         <button onClick={() => handleShowData(item.id)}>SHOW</button>
+                    </div>
+               ))}
+               <button onClick={handleAddClick}>新增</button>
+          </ReactSortable>
+          )
+     }

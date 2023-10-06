@@ -6,11 +6,11 @@ import SignUp from "../pages/signup";
 import TestPage from "../pages/test";
 
 const RouterList = [
-     { name: '', component: Index },
-     { name: 'signin', component: SignIn },
-     { name: 'signup', component: SignUp },
-     { name: 'index', component: HomeBoard },
-     { name: 'test', component: TestPage },
-     { name: 'about', component: About },
+     { name: '', element: < Index /> },
+     { name: 'signin', element: <SignIn /> },
+     { name: 'signup', element: <SignUp /> },
+     { name: 'index', element: <HomeBoard /> },
+     { name: 'test', element: <TestPage /> },
+     { name: 'about', element: <About /> },
 ]
 export default RouterList;

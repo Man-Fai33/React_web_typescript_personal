@@ -4,7 +4,7 @@ import RouterList from './routers/routerlist'
 
 function App() {
   const _data = {
-   
+
   }
   return (
     <BrowserRouter>
@@ -13,7 +13,7 @@ function App() {
           <Route
             key={route.name}
             path={`/${route.name}`}
-            element={<route.component />}
+            element={route.element}
           />
         ))
         }
