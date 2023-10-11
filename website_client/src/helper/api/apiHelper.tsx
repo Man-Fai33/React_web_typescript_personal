@@ -22,6 +22,14 @@ const ApiHelper = {
           let responseJson = await response.json();
           return responseJson;
      },
+     AsyncAllUser: async () => {
+          let response = await fetch(Url.user, {
+               headers: header.json,
+               method: methods.get,
+          })
+          let responseJson = await response.json()
+          return responseJson;
+     },
      AsyncValidateUser: async (inputuni: string, pwd: string) => {
           let response = await fetch(Url.user, {
                headers: header.json,

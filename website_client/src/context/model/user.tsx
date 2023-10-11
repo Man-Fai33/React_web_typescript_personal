@@ -1,3 +1,11 @@
+interface User {
+     username: string
+     email: string
+     password: string
+     gender: string
+     age: number
+}
+
 class User {
      username: string = ""
      email: string = ""

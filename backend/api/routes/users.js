@@ -5,12 +5,17 @@ const { UserHelper } = require('../helper/funcHelper.js');
 
 router.get('/', (req, res) => {
      let users = new User()
+     let error = {}
      try {
           users = User.find()
-     } catch (error) {
-          console.log(error)
+          console.log(users)
+
+          res.json(users)
+     } catch (e) {
+          error = e
+          res.json(error)
      }
-     res.json(users)
+     return res
 })
 router.post('/', async (req, res) => {
      let user = req.body
