@@ -7,10 +7,13 @@ router.get('/', (req, res) => {
      let users = new User()
      let error = {}
      try {
-          users = User.find()
-          console.log(users)
+          users = User.find().exec().then(result => {
+               res.json({ status: "success", users: result })
 
-          res.json(users)
+          })
+
+
+
      } catch (e) {
           error = e
           res.json(error)

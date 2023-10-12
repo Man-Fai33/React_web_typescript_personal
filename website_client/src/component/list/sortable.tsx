@@ -13,14 +13,14 @@ interface ItemType {
 export default function Sortable() {
 
 
-     const [users, setUsers] = useState<typeof User[]>([])
+     const [users, setUsers] = useState<typeof User[]>()
 
      useEffect(() => {
-          ApiHelper.AsyncAllUser().then(value => { setUsers(value) })
+          ApiHelper.AsyncAllUser().then(value => { setUsers(value.users) })
           console.log(users)
 
 
-     }, [ ])
+     }, [users === undefined])
 
 
 
