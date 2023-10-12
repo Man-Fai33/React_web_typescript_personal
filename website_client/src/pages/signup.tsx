@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import User from '../context/model/user';
+import { User } from '../context/model/user';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import func from '../helper/func';
 import { ApiHelper } from '../helper/api/apiHelper';
@@ -18,7 +18,7 @@ import { errInfo } from '../context/objectOT';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-     const [user] = React.useState(new User.User())
+     const [user] = React.useState(new User())
      // const getLogin = (callback: (r: az))
      const [errorDipaly] = React.useState(new errInfo())
      const [, setFormStatus] = React.useState<number>(0)
@@ -98,7 +98,6 @@ export default function SignUp() {
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center',
                                    }}>
-
                                    </Box>
 
                                    <Typography component="h1" variant="h5">

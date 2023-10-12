@@ -1,7 +1,7 @@
 import { Url } from "./apiurl"
-import User from '../../context/model/user';
+import {User} from '../../context/model/user';
 import func from "../func";
-const Users = new User.User()
+const Users = new  User()
 const methods = {
      post: ('POST'),
      get: ('GET'),

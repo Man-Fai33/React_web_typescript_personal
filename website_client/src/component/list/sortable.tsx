@@ -1,8 +1,8 @@
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react'
 
 import { ReactSortable } from "react-sortablejs";
-import User from '../../context/model/user';
+import {User} from '../../context/model/user';
 import { ApiHelper } from '../../helper/api/apiHelper';
 // class for data Types  
 interface ItemType {
@@ -59,7 +59,7 @@ export default function Sortable() {
                     <div key={item.id}>
                          <TextField id="outlined-basic" label="Outlined" variant="outlined" defaultValue={item.name} onChange={(e) => handleInputChange(e, item.id)} />
                          <button onClick={() => handleDeleteClick(item.id)}>删除</button>
-                         <button onClick={() => handleShowData(item.id)}>SHOW</button>
+                         <Button onClick={() => handleShowData(item.id)}>SHOW</Button>
                     </div>
                ))}
                <button onClick={handleAddClick}>新增</button>
