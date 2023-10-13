@@ -13,10 +13,11 @@ import { LoginData, errInfo } from '../context/objectOT'
 import func from '../helper/func'
 import { Link } from 'react-router-dom';
 import { ApiHelper } from '../helper/api/apiHelper';
+import ContextProvide,{_data} from '../context/provider/user';
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props:any) {
 
      const [login] = React.useState(new LoginData())
      const [, setPageStatus] = React.useState<Number>()
@@ -28,6 +29,8 @@ export default function SignIn() {
           try {
                await ApiHelper.AsyncValidateUser(login.email, login.pwd).then((e) => {
                     alert(e.message)
+                    console.log(e)
+                    
                }
                )
           } catch (error) {
