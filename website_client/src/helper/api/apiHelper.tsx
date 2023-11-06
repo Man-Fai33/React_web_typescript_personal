@@ -1,7 +1,7 @@
 import { Url } from "./apiurl"
-import {User} from '../../context/model/user';
+import { User } from '../../context/model/user';
 import func from "../func";
-const Users = new  User()
+const Users = new User()
 const methods = {
      post: ('POST'),
      get: ('GET'),
@@ -13,6 +13,26 @@ const header = {
      json: ({ Accept: 'application/json', 'Content-Type': 'application/json', })
 }
 const ApiHelper = {
+     AsyncUploadFile: async (file: File) => {
+          try {
+               const formData = new FormData();
+               formData.append('file', file);
+
+
+               let response = await fetch(Url.Upload, {
+                    method: 'POST',
+                 
+                    body: formData,
+               })
+
+               let responseJson = await response.json();
+
+               return responseJson;
+
+          } catch (error) {
+
+          }
+     },
      AsyncCreateUser: async (user: typeof Users) => {
           let response = await fetch(Url.user, {
                headers: header.json,

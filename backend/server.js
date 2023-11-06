@@ -32,7 +32,7 @@ connectToDatabase();
 const app = express()
 // routers
 var UserRouter = require('./api/routes/users')
-
+var UploadFile = require('./api/routes/uploadFile')
 
 
 //allow other device access
@@ -55,11 +55,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 
 
 //use router 
-app.use('/user',UserRouter)
-
-
-
-
+app.use('/user', UserRouter)
+app.use('/upload', UploadFile)
 
 
 mongoose.Promise = global.Promise;
