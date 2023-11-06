@@ -21,6 +21,7 @@ const upload = multer({
 
 // 修改静态文件服务
 router.use('/public/files', express.static(path.join(__dirname, 'public/files')));
+
 // 处理文件上传
 router.post('/', upload.single('file'), (req, res) => {
      console.log("file", req.body)
